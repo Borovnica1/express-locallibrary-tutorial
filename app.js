@@ -13,7 +13,10 @@ var helmet = require('helmet');
 var app = express();
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://petko:petko123@cluster0.dsm69.mongodb.net/local_library?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://petko:petko123@cluster0.dsm69.mongodb.net/local_library?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
